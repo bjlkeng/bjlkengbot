@@ -1,0 +1,1 @@
+scrapy runspider crawl.py -O briankeng-$(date +%F).jsonl --logfile run-$(date +%F).log
