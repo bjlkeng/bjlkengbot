@@ -4,12 +4,9 @@ import { OpenAIEmbeddings } from "langchain/embeddings/openai";
 import { OpenAI } from "langchain/llms/openai";
 import { PromptTemplate } from "langchain/prompts";
 
-const jsonl_filename = "../crawler/briankeng-split-2023-06-09.jsonl";
 const index_filename = "index.faiss";
-const chunkSize = 1000;
-const chunkOverlap = 100;
-const modelName = "text-davinci-003";
-const embeddingModelName = 'text-embedding-ada-002';
+// const modelName = "text-davinci-003";
+const modelName = "gpt-3.5-turbo";
 const maxTokens = 256;
 const numDocsRetrieved = 4;
 
@@ -45,7 +42,7 @@ const chain = new RetrievalQAChain( {
     
 
 const res = await chain.call({
-    query: "What is your age?",
+    query: "What are your dislikes?",
 });
 console.log(res);
 for (let i = 0; i < res.sourceDocuments.length; i++) {
