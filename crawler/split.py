@@ -1,8 +1,8 @@
 import jsonlines
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 
-filename = 'briankeng-2023-06-09.jsonl'
-out_filename = 'briankeng-split-2023-06-09.jsonl'
+filename = 'briankeng-2023-06-12.jsonl'
+out_filename = 'briankeng-split-2023-06-12.jsonl'
 
 # Since langchainjs doesn't have access to tiktoken (OpenAI tokenizer), we have
 # to do it manually here and pre-split it for them.
