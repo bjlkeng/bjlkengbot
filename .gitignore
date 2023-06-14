@@ -161,5 +161,6 @@ cython_debug/
 
 *.jsonl
 *.faiss/
-*node_modules/
+node_modules/
 *.chroma/
+package-lock.json
