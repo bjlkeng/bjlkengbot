@@ -1,3 +1,4 @@
+import json
 import jsonlines
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 
@@ -17,8 +18,11 @@ with jsonlines.open(filename) as reader:
         url = obj['url']
         chunks = text_splitter.split_text(content)
         for chunk in chunks:
-            output.append({'title': title, 'content': chunk, 'url': url})
+            output.append({'content': chunk, 'metadata': {'url': url, 'title': title}})
 
 print('Writing to', out_filename, '...')
-with jsonlines.open(out_filename, mode='w') as writer:
-    writer.write_all(output)
+with open(out_filename, 'w') as json_file:
+    json.dump(output, json_file)
+
+#with jsonlines.open(out_filename, mode='w') as writer:
+#    writer.write_all(output)

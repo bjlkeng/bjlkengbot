@@ -6,10 +6,7 @@ import { assert } from "console";
 const jsonl_filename = "../crawler/briankeng-split-2023-06-12.jsonl";
 const index_filename = "index.faiss";
 const chunkSize = 1000;
-const chunkOverlap = 100;
-const modelName = "text-davinci-003";
 const embeddingModelName = 'text-embedding-ada-002';
-const maxTokens = 256;
 
 // Assume docs are already pre-split (since langchainjs doesn't have tiktoken tokenizer yet)
 const loader = new JSONLinesLoader(jsonl_filename, "/content");

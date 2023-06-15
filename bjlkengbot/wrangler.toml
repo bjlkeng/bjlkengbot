@@ -1,0 +1,14 @@
+name = "bjlkengbot" # todo
+main = "index.js"
+compatibility_date = "2022-05-03"
+
+r2_buckets  = [
+  { binding = "r2bucket", bucket_name = "bjlkengbot"}
+]
+
+[vars]
+DOC_PATH = "briankeng-split-2023-06-12.jsonl"
+
+# The necessary secrets are:
+# - OPENAI_API_KEY
+# Run `echo <VALUE> | wrangler secret put <NAME>` for each of these
