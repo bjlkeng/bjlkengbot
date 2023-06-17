@@ -1,6 +1,12 @@
 name = "bjlkengbot" # todo
 main = "index.js"
 compatibility_date = "2022-05-03"
+usage_model = "unbound"
+workers_dev = false
+routes = [
+	{ pattern = "worker.bjlkeng.io", zone_name = "bjlkeng.io", custom_domain = true }
+]
+
 
 r2_buckets  = [
   { binding = "r2bucket", bucket_name = "bjlkengbot"}
