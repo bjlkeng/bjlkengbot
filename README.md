@@ -5,6 +5,13 @@ Note: I know the code is a mess but this is a one-off project to play with LLM's
 
 # Notes
 
+## 2023-06-16
+* Got `worker.bjlkeng.io` using custom domains (had to wait for thing sto propagate)
+* Next: get a WAF rate limiting working
+    * To use the free rule I have to ensure that worker returns only for specified path (e.g. bjlkengbot)
+    * Then I can make a rule around it
+
+
 ## 2023-06-14
 Got it working end to end!  It reads it from R2, indexes it, and then runs the query usign langchainjs.  
 On the `*.workers.dev` domain Cloudflare seems to not enforce the CPU limits, but when I route it through

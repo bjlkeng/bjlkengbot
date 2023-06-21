@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Ask the BJLKeng Bot</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      color: #333;
+      padding: 20px;
+      text-align: center;
+    }
+  
+    h1 {
+      color: #007bff;
+    }
+  
+    .container {
+      margin: 0 auto;
+      max-width: 400px;
+    }
+  
+    .input-group {
+      margin-bottom: 20px;
+    }
+  
+    .input-group input[type="text"] {
+      padding: 10px;
+      width: 100%;
+      border: none;
+      border-radius: 4px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+  
+    .input-group button {
+      padding: 10px 20px;
+      border: none;
+      background-color: #007bff;
+      color: #fff;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  
+    .input-group button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <h1>Ask the BJLKeng Bot</h1>
+  <div class="container">
+    <div class="input-group">
+      <input type="text" id="query" placeholder="Enter your question" />
+      <button onclick="askBot()">Ask</button>
+    </div>
+  </div>
+
+  <script>
+    function askBot() {
+      const query = document.getElementById('query').value;
+      const apiUrl = `https://worker.bjlkeng.io/bjlkengbot?query=${encodeURIComponent(query)}`;
+      
+      // Perform API request using the fetched query parameter
+      // You can use Fetch API or other AJAX methods to make the request
+      // and handle the response accordingly.
+      // For simplicity, this example does not include the actual API request.
+      console.log(apiUrl);
+    }
+  </script>
+</body>
+</html>
+
