@@ -44,6 +44,14 @@
     .input-group button:hover {
       background-color: #0056b3;
     }
+
+    .result-box {
+      border: 1px solid #ccc;
+      background-color: #fff;
+      padding: 20px;
+      margin-bottom: 20px;
+      text-align: left;
+    }
   </style>
 </head>
 <body>
@@ -53,18 +61,27 @@
       <input type="text" id="query" placeholder="Enter your question" />
       <button onclick="askBot()">Ask</button>
     </div>
+    <div id="result" class="result-box"></div>
   </div>
 
   <script>
     function askBot() {
       const query = document.getElementById('query').value;
       const apiUrl = `https://worker.bjlkeng.io/bjlkengbot?query=${encodeURIComponent(query)}`;
-      
+
       // Perform API request using the fetched query parameter
-      // You can use Fetch API or other AJAX methods to make the request
-      // and handle the response accordingly.
-      // For simplicity, this example does not include the actual API request.
-      console.log(apiUrl);
+      fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+          const answer = data.text;
+          // Display the result in the result box
+          const resultBox = document.getElementById('result');
+          resultBox.textContent = JSON.stringify(data, null, 2);
+        })
+        .catch(error => {
+          console.error(error);
+          // Handle any errors that occurred during the API request
+        });
     }
   </script>
 </body>
