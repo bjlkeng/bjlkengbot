@@ -67,7 +67,7 @@
   <script>
     function askBot() {
       const query = document.getElementById('query').value;
-      const apiUrl = `https://worker.bjlkeng.io/bjlkengbot?query=${encodeURIComponent(query)}`;
+      const apiUrl = `https://bjlkengbot.bjlkeng.io/api?query=${encodeURIComponent(query)}`;
 
       // Perform API request using the fetched query parameter
       fetch(apiUrl)

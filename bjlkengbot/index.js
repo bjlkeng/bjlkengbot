@@ -30,7 +30,7 @@ export default {
   async fetch(request, env, context) {
     const { searchParams, pathname } = new URL(request.url);
 
-    if (pathname !== "/bjlkengbot") {
+    if (pathname !== "/api") {
       return new Response('Unknown API', { status: 400 });
     }
 

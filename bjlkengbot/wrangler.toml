@@ -8,9 +8,9 @@ routes = [
 ]
 
 
-r2_buckets  = [
-  { binding = "r2bucket", bucket_name = "bjlkengbot"}
-]
+#r2_buckets  = [
+#  { binding = "r2bucket", bucket_name = "bjlkengbot"}
+#]
 
 [vars]
 DOC_PATH = "briankeng-split-2023-06-12.jsonl"
