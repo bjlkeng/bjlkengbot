@@ -52,6 +52,22 @@
       margin-bottom: 20px;
       text-align: left;
     }
+
+    @keyframes loading-animation {
+      0% {
+        content: ".";
+      }
+      33% {
+        content: "..";
+      }
+      66% {
+        content: "...";
+      }
+    }
+
+    .loading {
+      animation: loading-animation 1s infinite;
+    }
   </style>
 </head>
 <body>
@@ -59,7 +75,7 @@
   <div class="container">
     <div class="input-group">
       <input type="text" id="query" placeholder="Enter your question" onkeydown="handleKeyDown(event)"/>
-      <button onclick="askBot()">Ask</button>
+      <button id="submitButton" onclick="askBot()">Ask</button>
     </div>
     <div id="result" class="result-box"></div>
   </div>
@@ -75,11 +91,20 @@
     function askBot() {
       const query = document.getElementById('query').value;
       const apiUrl = `https://bjlkengbot.bjlkeng.io/api?query=${encodeURIComponent(query)}`;
+      const textInput = document.getElementById('query');
+      const submitButton = document.getElementById('submitButton');
 
       // Perform API request using the fetched query parameter
       fetch(apiUrl)
         .then(response => response.json())
         .then(data => {
+          textInput.classList.remove('loading'); // Remove loading animation class
+          textInput.disabled = false; // Enable input
+          submitButton.disabled = false; // Enable button
+
+          // Update the text box value with the API response
+          textInput.value = 'API response';
+
           const answer = data.text;
           // Display the result in the result box
           const resultBox = document.getElementById('result');
@@ -89,8 +114,11 @@
           console.error(error);
           // Handle any errors that occurred during the API request
         });
+
+        textInput.classList.add('loading'); // Add loading animation class
+        textInput.disabled = true; // Disable input
+        submitButton.disabled = true; // Disable button
     }
   </script>
 </body>
 </html>
-
