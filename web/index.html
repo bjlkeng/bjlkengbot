@@ -89,14 +89,14 @@
     }
 
     function askBot() {
-      const query = document.getElementById('query').value;
-      const apiUrl = `https://bjlkengbot.bjlkeng.io/api?query=${encodeURIComponent(query)}`;
+      const queryBox = document.getElementById('query');
+      const apiUrl = `https://bjlkengbot.bjlkeng.io/api?query=${encodeURIComponent(queryBox.value)}`;
       const submitButton = document.getElementById('submitButton');
       const resultBox = document.getElementById('result');
 
-      resultBox.value = '';
+      resultBox.textContent = '';
       resultBox.classList.add('loading'); 
-      query.disabled = true;
+      queryBox.disabled = true;
       submitButton.disabled = true; 
 
       // Perform API request using the fetched query parameter
@@ -104,7 +104,7 @@
         .then(response => response.json())
         .then(data => {
           resultBox.classList.remove('loading');
-          query.disabled = false;
+          queryBox.disabled = false;
           submitButton.disabled = false;
 
           const answer = data.text;
