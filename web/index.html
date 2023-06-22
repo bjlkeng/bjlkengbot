@@ -17,7 +17,7 @@
   
     .container {
       margin: 0 auto;
-      max-width: 400px;
+      max-width: 700px;
     }
   
     .input-group {
@@ -93,30 +93,26 @@
       const apiUrl = `https://bjlkengbot.bjlkeng.io/api?query=${encodeURIComponent(query)}`;
       const textInput = document.getElementById('query');
       const submitButton = document.getElementById('submitButton');
+      const resultBox = document.getElementById('result');
 
       // Perform API request using the fetched query parameter
       fetch(apiUrl)
         .then(response => response.json())
         .then(data => {
-          textInput.classList.remove('loading'); // Remove loading animation class
-          textInput.disabled = false; // Enable input
+          resultBox.classList.remove('loading'); // Remove loading animation class
+          query.disabled = false; // Enable input
           submitButton.disabled = false; // Enable button
 
-          // Update the text box value with the API response
-          textInput.value = 'API response';
-
           const answer = data.text;
-          // Display the result in the result box
-          const resultBox = document.getElementById('result');
-          resultBox.textContent = JSON.stringify(data, null, 2);
+          resultBox.textContent = JSON.stringify(answer, null, 2);
         })
         .catch(error => {
           console.error(error);
           // Handle any errors that occurred during the API request
         });
 
-        textInput.classList.add('loading'); // Add loading animation class
-        textInput.disabled = true; // Disable input
+        resultBox.classList.add('loading'); // Add loading animation class
+        query.disabled = true; // Disable input
         submitButton.disabled = true; // Disable button
     }
   </script>
