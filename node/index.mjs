@@ -1,35 +1,23 @@
-import { FaissStore } from "langchain/vectorstores/faiss";
+import fs from "fs";
+import { MemoryVectorStore } from "langchain/vectorstores/memory";
 import { JSONLinesLoader } from "langchain/document_loaders/fs/json";
 import { OpenAIEmbeddings } from "langchain/embeddings/openai";
+import { Document } from "langchain/document";
 import { assert } from "console";
 
-const jsonl_filename = "../crawler/briankeng-split-2023-06-12.jsonl";
-const index_filename = "index.faiss";
+const json_filename = "../crawler/briankeng-split-2023-06-12.json";
+const index_filename = "index_vectors.json";
 const chunkSize = 1000;
 const embeddingModelName = 'text-embedding-ada-002';
 
 // Assume docs are already pre-split (since langchainjs doesn't have tiktoken tokenizer yet)
-const loader = new JSONLinesLoader(jsonl_filename, "/content");
-const docs = await loader.load();
-
-// Brute force load meta data because jsonl loader doesn't support extracting multiple fields
-const urlLoader = new JSONLinesLoader(jsonl_filename, "/url");
-const urlDocs = await urlLoader.load();
-const titleLoader = new JSONLinesLoader(jsonl_filename, "/title");
-const titleDocs = await titleLoader.load();
-
-assert(docs.length == urlDocs.length, "docs and urlDocs must be the same length");
-assert(docs.length == titleDocs.length, "docs and titleDocs must be the same length");
-
-// add url metadata to docs
-for (let i = 0; i < docs.length; i++) {
-    docs[i].metadata["url"] = urlDocs[i].pageContent;
-    docs[i].metadata["title"] = titleDocs[i].pageContent;
-}
-
-console.log(docs)
-
+let docs = [];
+const data = fs.readFileSync(json_filename, 'utf8');
+docs = JSON.parse(data).map(d => {
+    return new Document({pageContent: d.content, metadata: d.metadata});
+});
+    
 const embeddingModel = new OpenAIEmbeddings({ model: embeddingModelName, chunkSize: chunkSize });
-const vectorStore = await FaissStore.fromDocuments(docs, embeddingModel);
+const vectorStore = await MemoryVectorStore.fromDocuments(docs, embeddingModel);
 
-await vectorStore.save(index_filename);
+fs.writeFileSync(index_filename, JSON.stringify(vectorStore.memoryVectors))

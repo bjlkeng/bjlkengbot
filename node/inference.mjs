@@ -1,20 +1,19 @@
-import { FaissStore } from "langchain/vectorstores/faiss";
+import fs from "fs";
+import { MemoryVectorStore } from "langchain/vectorstores/memory";
 import { RetrievalQAChain, loadQAStuffChain } from "langchain/chains";
 import { OpenAIEmbeddings } from "langchain/embeddings/openai";
 import { OpenAI } from "langchain/llms/openai";
 import { PromptTemplate } from "langchain/prompts";
 
-const index_filename = "index.faiss";
-// const modelName = "text-davinci-003";
+const index_filename = "index_vectors.json";
 const modelName = "gpt-3.5-turbo";
 const maxTokens = 256;
 const numDocsRetrieved = 4;
 
 // Load the vector store from the same directory
-const loadedVectorStore = await FaissStore.load(
-    index_filename,
-    new OpenAIEmbeddings()
-);
+const loadedVectorStore = new MemoryVectorStore(new OpenAIEmbeddings());
+const memoryVectors = JSON.parse(fs.readFileSync(index_filename, 'utf8'));
+loadedVectorStore.memoryVectors = memoryVectors;
 
 const template = `Use the following pieces of context to answer the question at the end. If you don't know the answer, just say that "I am not programmed to answer that", don't try to make up an answer.
 
@@ -39,7 +38,6 @@ const chain = new RetrievalQAChain( {
     retriever: retriever,
     returnSourceDocuments: true,
 })
-    
 
 const res = await chain.call({
     query: "What are your dislikes?",

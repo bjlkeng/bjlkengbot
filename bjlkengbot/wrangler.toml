@@ -7,13 +7,12 @@ routes = [
 	{ pattern = "worker.bjlkeng.io", zone_name = "bjlkeng.io", custom_domain = true }
 ]
 
-
-#r2_buckets  = [
-#  { binding = "r2bucket", bucket_name = "bjlkengbot"}
-#]
+r2_buckets  = [
+  { binding = "r2bucket", bucket_name = "bjlkengbot"}
+]
 
 [vars]
-DOC_PATH = "briankeng-split-2023-06-12.jsonl"
+DOC_PATH = "index_vectors.json"
 
 # The necessary secrets are:
 # - OPENAI_API_KEY
