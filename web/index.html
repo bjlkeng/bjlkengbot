@@ -91,29 +91,29 @@
     function askBot() {
       const query = document.getElementById('query').value;
       const apiUrl = `https://bjlkengbot.bjlkeng.io/api?query=${encodeURIComponent(query)}`;
-      const textInput = document.getElementById('query');
       const submitButton = document.getElementById('submitButton');
       const resultBox = document.getElementById('result');
+
+      resultBox.value = '';
+      resultBox.classList.add('loading'); 
+      query.disabled = true;
+      submitButton.disabled = true; 
 
       // Perform API request using the fetched query parameter
       fetch(apiUrl)
         .then(response => response.json())
         .then(data => {
-          resultBox.classList.remove('loading'); // Remove loading animation class
-          query.disabled = false; // Enable input
-          submitButton.disabled = false; // Enable button
+          resultBox.classList.remove('loading');
+          query.disabled = false;
+          submitButton.disabled = false;
 
           const answer = data.text;
           resultBox.textContent = JSON.stringify(answer, null, 2);
         })
         .catch(error => {
           console.error(error);
-          // Handle any errors that occurred during the API request
+          resultBox.value = `error: ${error}`;
         });
-
-        resultBox.classList.add('loading'); // Add loading animation class
-        query.disabled = true; // Disable input
-        submitButton.disabled = true; // Disable button
     }
   </script>
 </body>
