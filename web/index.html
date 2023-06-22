@@ -52,6 +52,7 @@
       margin-bottom: 20px;
       text-align: left;
       position: relative;
+      display: none;
     }
 
     .loading {
@@ -85,7 +86,7 @@
       <input type="text" id="query" placeholder="Enter your question" onkeydown="handleKeyDown(event)"/>
       <button id="submitButton" onclick="askBot()">Ask</button>
     </div>
-    <div class="container">
+    <div id="resultContainer" class="container">
       <div id="result" class="result-box"></div>
     </div>
   </div>
@@ -103,9 +104,11 @@
       const apiUrl = `https://bjlkengbot.bjlkeng.io/api?query=${encodeURIComponent(queryBox.value)}`;
       const submitButton = document.getElementById('submitButton');
       const resultBox = document.getElementById('result');
+      const resultContainer = document.getElementById('resultContainer');
 
       resultBox.textContent = '';
-      resultBox.classList.add('loading'); 
+      resultBox.classList.add('hidden'); 
+      resultContainer.classList.add('loading'); 
       queryBox.disabled = true;
       submitButton.disabled = true; 
 
@@ -113,7 +116,8 @@
       fetch(apiUrl)
         .then(response => response.json())
         .then(data => {
-          resultBox.classList.remove('loading');
+          resultBox.classList.remove('hidden');
+          resultContainer.classList.remove('loading');
           queryBox.disabled = false;
           submitButton.disabled = false;
 
@@ -123,6 +127,10 @@
         .catch(error => {
           console.error(error);
           resultBox.value = `error: ${error}`;
+          resultBox.classList.remove('hidden');
+          resultContainer.classList.remove('loading');
+          queryBox.disabled = false;
+          submitButton.disabled = false;
         });
     }
   </script>
