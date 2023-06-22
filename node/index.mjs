@@ -1,9 +1,7 @@
 import fs from "fs";
 import { MemoryVectorStore } from "langchain/vectorstores/memory";
-import { JSONLinesLoader } from "langchain/document_loaders/fs/json";
 import { OpenAIEmbeddings } from "langchain/embeddings/openai";
 import { Document } from "langchain/document";
-import { assert } from "console";
 
 const json_filename = "../crawler/briankeng-split-2023-06-12.json";
 const index_filename = "index_vectors.json";

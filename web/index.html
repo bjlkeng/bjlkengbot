@@ -58,13 +58,20 @@
   <h1>Ask the BJLKeng Bot</h1>
   <div class="container">
     <div class="input-group">
-      <input type="text" id="query" placeholder="Enter your question" />
+      <input type="text" id="query" placeholder="Enter your question" onkeydown="handleKeyDown(event)"/>
       <button onclick="askBot()">Ask</button>
     </div>
     <div id="result" class="result-box"></div>
   </div>
 
   <script>
+    function handleKeyDown(event) {
+      if (event.keyCode === 13) { // 13 is the key code for Enter
+        event.preventDefault(); // Prevent form submission
+        askBot();
+      }
+    }
+
     function askBot() {
       const query = document.getElementById('query').value;
       const apiUrl = `https://bjlkengbot.bjlkeng.io/api?query=${encodeURIComponent(query)}`;
