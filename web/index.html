@@ -45,9 +45,6 @@
       background-color: #0056b3;
     }
 
-    .result-container {
-    }
-
     .result-box {
       border: 1px solid #ccc;
       background-color: #fff;
@@ -70,6 +67,13 @@
       display: none;
       margin-top: 5px;
       padding-left: 15px;
+    }
+
+    .subtitle {
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+      margin-top: 10px;
     }
 
     .loading {
@@ -103,10 +107,11 @@
       <input type="text" id="query" placeholder="Enter your question" onkeydown="handleKeyDown(event)"/>
       <button id="submitButton" onclick="askBot()">Ask</button>
     </div>
-    <div id="resultContainer" class="result-container">
+    <div id="resultContainer">
       <div id="result" class="result-box">
 
-        <div id="answer">
+        <div id="answerContainer">
+          <p id="answer"></p>
         </div>
         <div id="references">
         </div>
@@ -132,7 +137,7 @@
       result.classList.remove('loading');
       queryBox.disabled = false;
       submitButton.disabled = false;
-      resultAnswer.textContent = "";
+      resultAnswer.innerHTML = "";
       resultReferences.innerHTML = "";
     }
 
@@ -154,6 +159,12 @@
       const resultReferences = document.getElementById('references');  result.classList.remove('loading');
       resetState();
 
+      // Create the "Answer" div
+      const answerDiv = document.createElement("div");
+      answerDiv.textContent = "Answer";
+      answerDiv.classList.add("subtitle");
+      resultAnswer.appendChild(answerDiv);
+
       resultAnswer.textContent = data.text;
 
       // Loop through the sourceDocuments array
@@ -164,10 +175,15 @@
         const listItem = document.createElement("li");
         listItem.className = "document-item";
 
+        // Create a new <span> element for the title
+        const title = document.createElement("span");
+        title.textContent = "Title ";
+        title.textContent = sourceDoc.metadata.title;
+
         // Create title link
         const titleLink = document.createElement("a");
         titleLink.href = sourceDoc.metadata.url;
-        titleLink.textContent = sourceDoc.metadata.title;
+        titleLink.textContent = "[url]";
         titleLink.className = "document-title";
 
         // Create content div
@@ -176,6 +192,7 @@
         contentDiv.className = "document-content";
 
         // Append title link and content div to the list item
+        listItem.appendChild(title);
         listItem.appendChild(titleLink);
         listItem.appendChild(contentDiv);
 
@@ -183,6 +200,12 @@
         listItem.addEventListener("click", function() {
           contentDiv.style.display = (contentDiv.style.display === "none") ? "block" : "none";
         });
+
+        // Create the "References" div
+        const referencesDiv = document.createElement("div");
+        referencesDiv.textContent = "References";
+        referencesDiv.classList.add("subtitle");
+        resultReferences.appendChild(referencesDiv);
 
         // Append list item to the source documents list
         resultReferences.appendChild(listItem);
