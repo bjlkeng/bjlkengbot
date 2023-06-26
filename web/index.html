@@ -59,10 +59,6 @@
       cursor: pointer;
     }
 
-    .document-title {
-      font-weight: bold;
-    }
-
     .document-content {
       display: none;
       margin-top: 5px;
@@ -165,7 +161,16 @@
       answerDiv.classList.add("subtitle");
       resultAnswer.appendChild(answerDiv);
 
-      resultAnswer.textContent = data.text;
+      // Create the "Answer" p
+      const answerp = document.createElement("p");
+      answerp.textContent = data.text;
+      resultAnswer.appendChild(answerDiv);
+
+      // Create the "References" div
+      const referencesDiv = document.createElement("div");
+      referencesDiv.textContent = "References";
+      referencesDiv.classList.add("subtitle");
+      resultReferences.appendChild(referencesDiv);
 
       // Loop through the sourceDocuments array
       for (var i = 0; i < data.sourceDocuments.length; i++) {
@@ -177,19 +182,18 @@
 
         // Create a new <span> element for the title
         const title = document.createElement("span");
-        title.textContent = "Title ";
-        title.textContent = sourceDoc.metadata.title;
+        title.textContent = `[i] {sourceDoc.metadata.title} `;
 
         // Create title link
         const titleLink = document.createElement("a");
         titleLink.href = sourceDoc.metadata.url;
-        titleLink.textContent = "[url]";
-        titleLink.className = "document-title";
+        titleLink.textContent = " [url]";
 
         // Create content div
         const contentDiv = document.createElement("div");
         contentDiv.textContent = sourceDoc.pageContent;
         contentDiv.className = "document-content";
+        contentDiv.style.display = "none";
 
         // Append title link and content div to the list item
         listItem.appendChild(title);
@@ -200,12 +204,6 @@
         listItem.addEventListener("click", function() {
           contentDiv.style.display = (contentDiv.style.display === "none") ? "block" : "none";
         });
-
-        // Create the "References" div
-        const referencesDiv = document.createElement("div");
-        referencesDiv.textContent = "References";
-        referencesDiv.classList.add("subtitle");
-        resultReferences.appendChild(referencesDiv);
 
         // Append list item to the source documents list
         resultReferences.appendChild(listItem);
