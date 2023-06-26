@@ -54,6 +54,20 @@
       position: relative;
     }
 
+    .ellipsis {
+      background-color: #f1f1f1; /* Grey background color */
+      color: #999; /* Faded text color */
+      opacity: 0.6; /* Faded opacity */
+      padding: 5px 10px; /* Add padding for spacing */
+      border-radius: 5px; /* Rounded corners */
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Drop shadow */
+      cursor: pointer; /* Change cursor on hover */
+    }
+
+    .ellipsis:hover {
+      opacity: 1; /* Increase opacity on hover */
+    }
+
     .document-item {
       margin-bottom: 10px;
       cursor: pointer;
@@ -70,6 +84,7 @@
       font-weight: bold;
       color: #333;
       margin-top: 10px;
+      margin-bottom: 10px;
     }
 
     .loading {
@@ -182,7 +197,7 @@
 
         // Create a new <span> element for the title
         const title = document.createElement("span");
-        title.textContent = `${i}: ${sourceDoc.metadata.title} `;
+        title.textContent = `[${i}] ${sourceDoc.metadata.title} | `;
 
         // Create title link
         const titleLink = document.createElement("a");
@@ -190,8 +205,11 @@
         titleLink.textContent = "[link]";
 
         // Create a new <span> element for "..."
-        const dots = document.createElement("span");
-        dots.textContent = `...`;
+        const dots1 = document.createElement("span");
+        dots1.textContent = ' | ';
+        const dots2 = document.createElement("span");
+        dots2.textContent = `...`;
+        dots2.className = "ellipsis";
 
         // Create content div
         const contentDiv = document.createElement("div");
@@ -202,7 +220,8 @@
         // Append title link and content div to the list item
         listItem.appendChild(title);
         listItem.appendChild(titleLink);
-        listItem.appendChild(dots);
+        listItem.appendChild(dots1);
+        listItem.appendChild(dots2);
         listItem.appendChild(contentDiv);
 
         // Add event listener to toggle content visibility on click
