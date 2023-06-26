@@ -182,12 +182,16 @@
 
         // Create a new <span> element for the title
         const title = document.createElement("span");
-        title.textContent = `[i] {sourceDoc.metadata.title} `;
+        title.textContent = `${i}: ${sourceDoc.metadata.title} `;
 
         // Create title link
         const titleLink = document.createElement("a");
         titleLink.href = sourceDoc.metadata.url;
-        titleLink.textContent = " [url]";
+        titleLink.textContent = "[link]";
+
+        // Create a new <span> element for "..."
+        const dots = document.createElement("span");
+        dots.textContent = `...`;
 
         // Create content div
         const contentDiv = document.createElement("div");
@@ -198,10 +202,11 @@
         // Append title link and content div to the list item
         listItem.appendChild(title);
         listItem.appendChild(titleLink);
+        listItem.appendChild(dots);
         listItem.appendChild(contentDiv);
 
         // Add event listener to toggle content visibility on click
-        listItem.addEventListener("click", function() {
+        dots.addEventListener("click", function() {
           contentDiv.style.display = (contentDiv.style.display === "none") ? "block" : "none";
         });
 
