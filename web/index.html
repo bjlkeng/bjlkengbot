@@ -20,6 +20,10 @@
       max-width: 700px;
     }
   
+    .query {
+      margin-bottom: 20px;
+    }
+
     .input-group {
       margin-bottom: 20px;
     }
@@ -114,7 +118,7 @@
   <h1>Ask the BJLKeng Bot</h1>
   <div class="container">
     <div class="input-group">
-      <input type="text" id="query" placeholder="Enter your question" onkeydown="handleKeyDown(event)"/>
+      <input type="text" class="query" id="query" placeholder="Enter your question" onkeydown="handleKeyDown(event)"/>
       <button id="submitButton" onclick="askBot()">Ask</button>
     </div>
     <div id="resultContainer">
