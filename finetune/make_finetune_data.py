@@ -1,12 +1,12 @@
 """ Generate fine-tuning data for GPT by generating a question to the chunked
 blog post snippets. 
 """
-
+import time
 import jsonlines
 from langchain.chat_models import ChatOpenAI
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 
-filename = 'briankeng-2023-06-09.jsonl'
+filename = '../crawler/briankeng-2023-06-09.jsonl'
 params = {
     'temperature': 0.2,
     'model_name': 'gpt-3.5-turbo',
@@ -50,11 +50,19 @@ for i, d in enumerate(data):
     text = splits[0]
 
     prompt = PROMPT + text
-    question = llm.predict(prompt)
+
+    # Add required pre-processing for OpenAI fine-tuning
+    question = "QUESTION: " + llm.predict(prompt) + "\n\n###\n\n"
+    text = " " + text + " END"
     print('----------------------------------------')
-    print(f'QUESTION: {question}')
-    print(f'CONTENT: {text}')
-    output.append({'question': question, 'completion': text, 'url': url, 'title': title})
+    print(f'{question}')
+    print(f'{text}')
+    output.append({'prompt': question, 'completion': text})
+
+    # Sleep every 100 requests
+    if (i + 1) % 40 == 0:
+        print('Sleeping...')
+        time.sleep(60)
 
 # jsonlines write out file
 with jsonlines.open('briankeng-2023-06-09-finetune.jsonl', mode='w') as writer:
@@ -63,6 +71,6 @@ with jsonlines.open('briankeng-2023-06-09-finetune.jsonl', mode='w') as writer:
 # Write out text file
 with open('briankeng-2023-06-09-finetune.txt', 'w') as f:
     for o in output:
-        f.write(f'QUESTION: {o["question"]}\n')
+        f.write(f'QUESTION: {o["prompt"]}\n')
         f.write(f'ANSWER: {o["completion"]}\n')
         f.write('\n\n')
