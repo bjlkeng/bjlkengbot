@@ -58,8 +58,6 @@ for i, obj in enumerate(training_data):
     datum['hypothesis'] = hypothesis
     datum['training_data'] = obj
 
-    print(hypothesis, reference)
-
     rscore = rouge.Rouge().get_scores(hypothesis, reference)[0]
     datum['rouge'] = rscore
     data.append(datum)
@@ -69,7 +67,9 @@ for i, obj in enumerate(training_data):
         break
 
     # Sleep every request
-    time.sleep(1.5)
+    time.sleep(10.5)
+    if (i + 1) % 10 == 0:
+        print(f'* Finished {i + 1} data points')
 
 result['data'] = data    
 if DEBUG:
