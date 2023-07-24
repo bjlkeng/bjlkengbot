@@ -13,6 +13,8 @@
 		"wrangler": "^3.0.0"
 	},
 	"dependencies": {
-		"langchain": "^0.0.95"
+		"@vespaiach/axios-fetch-adapter": "^0.3.1",
+		"langchain": "^0.0.95",
+		"openai": "^3.3.0"
 	}
 }

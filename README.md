@@ -69,6 +69,18 @@ prompt: QUESTION: What is the metaphor for happiness when having a child?
 NEXT:
 * Going to downgrade to a chepaer model (Curie) and do some hyperparam sweep along batch size, learning rate, epoch
 
+## 2023-07-23
+
+* Adding finetuning API (did a bunch of finetuning on OpenAI APIs before)
+* Had to use a seperate trick since OpenAI Node library doesn't quite support Cloudeflare workers: https://community.openai.com/t/cloudflare-pages-typeerror-adapter-is-not-a-function/163299/5
+  * `npm install @vespaiach/axios-fetch-adapter`
+
+```const configuration = new Configuration({
+  apiKey: apiKey,
+  baseOptions: {
+    adapter: fetchAdapter
+  }
+});```
 
 ## 2023-07-09
 
