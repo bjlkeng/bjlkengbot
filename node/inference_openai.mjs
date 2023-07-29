@@ -26,7 +26,7 @@ const completion = await openai.createCompletion({
 });
 console.log(completion.data);
 const res = {
-  'completion': completion.data.choices[0].text.slice(0, -4),
+  'completion': completion.data.choices[0].text,
   'query': query
 };
 console.log("5");
