@@ -206,14 +206,14 @@
       answerp.textContent = data.text;
       resultAnswer.appendChild(answerp);
 
-      // Create the "References" div
-      const referencesDiv = document.createElement("div");
-      referencesDiv.textContent = "References";
-      referencesDiv.classList.add("subtitle");
-      resultReferences.appendChild(referencesDiv);
-
-      // Loop through the sourceDocuments array
       if ("sourceDocuments" in data) {
+        // Create the "References" div
+        const referencesDiv = document.createElement("div");
+        referencesDiv.textContent = "References";
+        referencesDiv.classList.add("subtitle");
+        resultReferences.appendChild(referencesDiv);
+
+        // Loop through the sourceDocuments array
         for (var i = 0; i < data.sourceDocuments.length; i++) {
           const sourceDoc = data.sourceDocuments[i];
 
