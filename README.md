@@ -1,6 +1,9 @@
 # bjlkengbot
 Playing around with LLM's.
 
+* See my blog post on this project for more details: https://bjlkeng.io/
+* Deployed version is here (probably not going to be maintained though): https://bjlkengbot.bjlkeng.io/
+
 Note: I know the code is a mess but this is a one-off project to play with LLM's and Cloudflare, not anything close to production, so don't judge!
 
 # Notes
